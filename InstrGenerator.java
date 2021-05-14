@@ -6,25 +6,26 @@ import java.util.Scanner;
 public class InstrGenerator
 {
     private HashMap<String, Integer> labelAddresses;
-    private int[] codeMemory;
+    private Instruction[] codeMemory;
 
     public InstrGenerator()
     {
         this.labelAddresses = new HashMap<String, Integer>();
-        this.codeMemory = new int[65535];
+        this.codeMemory = new Instruction[65535];
     }
 
+    // Assemble in two passes
     public Instruction[] assemble(String filepath)
     throws FileNotFoundException, InvalidLabelException, DuplicateLabelException
     {
         File fileObj = new File(filepath);
         firstPass(fileObj);
-        for (String s : labelAddresses.keySet())
-            System.out.println(s + " " + labelAddresses.get(s));
+        //for (String s : labelAddresses.keySet())
+        //    System.out.println(s + " " + labelAddresses.get(s));
         return null;
     }
 
-    // Test whether line is blank or comment
+    // Test if line is blank/comment
     private boolean isBlank(String line)
     {
         for (int i = 0; i < line.length(); i++)
@@ -96,9 +97,14 @@ public class InstrGenerator
             {
                 if (labelAddresses.containsKey(label))
                 {
+                    input.close();
                     throw new DuplicateLabelException("Duplicate label " + label + " found.");
                 }
-                if (label != null && label != "") this.labelAddresses.put(label, pc);
+                if (label != null && label != "")
+                {
+                    this.labelAddresses.put(label, pc);
+                    this.codeMemory[pc] = new Instruction(InstrName.LABEL, 0, 0);
+                }
             }
             pc++;
         }
@@ -106,17 +112,25 @@ public class InstrGenerator
         input.close();
     }
 
-    /*
-    private Instruction secondPass()
+    // Second pass: read instructions into memory
+    private void secondPass(File fileObj)
+    throws FileNotFoundException
     {
+        int pc = 0;
+        Scanner input = new Scanner(fileObj);
 
+        while (input.hasNextLine())
+        {
+            // TODO
+        }
+
+        input.close();
     }
-    */
 
     public static void main(String[] args)
     throws FileNotFoundException, InvalidLabelException, DuplicateLabelException
     {
         InstrGenerator gen = new InstrGenerator();
-        gen.assemble("/Users/dysonye/Desktop/Projects/Java/simp/tests/labels.txt");
+        gen.assemble("/Users/dysonye/Desktop/Projects/Java/simp/tests/hello.txt");
     }
 }
