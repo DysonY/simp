@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.HashMap;
-
 public class Assembler
 {
     public Instruction[] codeMemory;  // 2^16 cells of program memory

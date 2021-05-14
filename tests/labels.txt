@@ -1,0 +1,28 @@
+.label1
+.label2
+
+.label3
+.label4
+
+.label5
+.label6
+
+.label7
+.label8
+
+.label9
+.label10 ; INLINE COMMENT
+
+; COMMENT
+; COMMENT
+; COMMENT
+
+.label11 ; INLINE COMMENT
+.label12
+.label13
+.label14
+.label15
+.label16
+.label17
+.label18
+ret
