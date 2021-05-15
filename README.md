@@ -17,6 +17,7 @@ SIMP supports the following instructions:
 | Push | push *val* | Put *val* on top of stack
 | Pop  | pop | Decrement stack pointer
 | Store | store *val*, *addr* | Put *val* at memory location *addr*
+| Load | load *addr* | Put value at *addr* on top of stack
 | Branch if Equal | beq *val*, *label* | If top of stack equals *val*, branch to *label*
 | Branch if Not Equal | bne *val*, *label* | If top of stack does not equal *val*, branch to *label*
 | Branch Unconditional | br *label* | Jump to *label*

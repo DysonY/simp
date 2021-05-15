@@ -1,6 +1,7 @@
 public enum InstrName
 {
-    STORE, PUSH, POP,
+    STORE, LOAD,
+    PUSH, POP,
     ADD, SUB, SWAP,
     AND, OR, NOT, XOR,
     INC, DEC,

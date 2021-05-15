@@ -20,8 +20,8 @@ public class InstrGenerator
     {
         File fileObj = new File(filepath);
         firstPass(fileObj);
-        //for (String s : labelAddresses.keySet())
-        //    System.out.println(s + " " + labelAddresses.get(s));
+        for (String s : labelAddresses.keySet())
+            System.out.println(s + " " + labelAddresses.get(s));
         return null;
     }
 
@@ -121,7 +121,16 @@ public class InstrGenerator
 
         while (input.hasNextLine())
         {
-            // TODO
+            String line = input.nextLine();
+
+            // If label is found, continue
+            if (codeMemory[pc] != null)
+            {
+                pc++;
+                continue;
+            }
+            
+            // else parse instruction, set codeMemory[pc] := instruction, increment pc
         }
 
         input.close();

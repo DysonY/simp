@@ -5,7 +5,6 @@ public class Assembler
     private int pc; // program counter
     private int sp; // stack pointer
     private int ret; // return flag
-    //private HashMap<String, Integer> labelAddresses; // map labels to code memory position
 
     public Assembler()
     {
@@ -14,81 +13,7 @@ public class Assembler
         this.pc = 0;
         this.sp = 0;
         this.ret = 0;
-        //this.labelAddresses = new HashMap<String, Integer>();
     }
-
-    /*
-    public void assemble(String filepath)
-    { 
-        try
-        {
-            File fileObj = new File(filepath);
-            Scanner input = new Scanner(fileObj);
-            int codeAddr = 0;
-
-            // First pass: read addresses of labels
-            while (input.hasNextLine())
-            {
-                String line = input.nextLine();
-                parseLabel(line, codeAddr);
-                if (!isBlankLine(line)) codeAddr++;
-            }
-            input.close();
-
-            // Second pass: read instructions
-            input = new Scanner(fileObj);
-            while (input.hasNextLine())
-            {
-                String line = input.nextLine();
-                // this.codeMemory[addr] = parseLine(line);
-                // i++
-            }
-            input.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("File " + e + " not found.");
-        }
-    }
-
-    private boolean isBlankLine(String line)
-    {
-        for (int i = 0; i < line.length(); i++)
-        {
-            if (line.charAt(i) != ' ' && line.charAt(i) != '\t') return false;
-        }
-        return true;
-    }
-
-    private void parseLabel(String line, int addr)
-    {
-        // Burn initial whitespace
-        int i = 0;
-        while (line.charAt(i) == ' ' || line.charAt(i) == '\t') i++;
-
-        // Exit if not label
-        if (line.charAt(i) != '.') return;
-        i++;
-
-        // Read label name
-        String label = "";
-        while (line.charAt(i) != ' ' && line.charAt(i) != '\t')
-        {
-            label += line.charAt(i);
-            i++;
-        }
-        this.labelAddresses.put(label, addr);
-        this.codeMemory[addr] = new Instruction(InstrName.LABEL, 0, 0);
-
-        // TODO: Burn final whitespace, throw exception if
-        // non-whitespace char is found; fix calculation of codeAddr
-    }
-    
-    private Instruction parseLine(String line)
-    {
-        return null;
-    }
-    */
 
     public void run()
     {
@@ -108,6 +33,10 @@ public class Assembler
         switch (current.instr) {
             case STORE:
                 this.dataMemory[op2] = op1;
+                break;
+            
+            case LOAD:
+                this.dataMemory[sp++] = this.dataMemory[op1];
                 break;
         
             case PUSH:
