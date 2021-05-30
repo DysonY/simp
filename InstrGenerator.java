@@ -179,6 +179,7 @@ public class InstrGenerator
                 return new Instruction(InstrName.LOAD, Integer.parseInt(args[1]), 0);
             
             case "beq":
+                System.out.println("DEBUG beq");
                 validateNumOfArgs(args.length, 3, lineNum);
                 return new Instruction(InstrName.BEQ, Integer.parseInt(args[1]), getAddrOfLabel(args[2]));
             
@@ -250,7 +251,6 @@ public class InstrGenerator
             // If label or blank line is found, continue
             if (getLabel(line) != null || isBlank(line))
             {
-                pc++;
                 lineNum++;
                 continue;
             }

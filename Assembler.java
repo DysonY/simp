@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 public class Assembler
 {
     public Instruction[] codeMemory;  // 2^16 cells of program memory
@@ -8,16 +10,25 @@ public class Assembler
 
     public Assembler()
     {
-        this.codeMemory = new Instruction[65535];
+        //this.codeMemory = new Instruction[65535];
         this.dataMemory = new int[65535];
         this.pc = 0;
         this.sp = 0;
         this.ret = 0;
     }
 
+    public void assemble(String filepath)
+    throws FileNotFoundException, AssemblyException
+    {
+        InstrGenerator generator = new InstrGenerator();
+        Instruction[] program = generator.assemble(filepath);
+        codeMemory = program.clone();
+    }
+
     public void run()
     {
-        while (ret == 0) {
+        while (ret == 0)
+        {
             if (sp < 0) return;
             runInstruction();
         }
@@ -27,6 +38,7 @@ public class Assembler
     private void runInstruction()
     {
         Instruction current = codeMemory[pc];
+        System.out.println(current.toString());
         int op1 = current.op1;
         int op2 = current.op2;
 
@@ -118,10 +130,25 @@ public class Assembler
         pc++;
     }
 
-    public static void main(String[] args) {
+    public void printProgram()
+    {
+        pc = 0;
+        while (codeMemory[pc] != null)
+        {
+            System.out.println(codeMemory[pc].toString());
+            pc++;
+        }
+    }
+
+    public static void main(String[] args)
+    throws FileNotFoundException, AssemblyException
+    {
         Assembler program = new Assembler();
-        //program.assemble("/Users/dysonye/Desktop/Projects/Java/assembler/tests/hello.txt");
+        program.assemble("/Users/dysonye/Desktop/Projects/Java/simp/tests/hello.txt");
+        //program.printProgram();
+        program.run();
         
+        /*
         program.codeMemory[0] = new Instruction(InstrName.PUSH, 0, 0);
         program.codeMemory[1] = new Instruction(InstrName.PUSH, 10, 0);
         program.codeMemory[2] = new Instruction(InstrName.PUSH, 33, 0);
@@ -145,6 +172,6 @@ public class Assembler
         program.codeMemory[19] = new Instruction(InstrName.LABEL, 0, 0); // endloop
         program.codeMemory[20] = new Instruction(InstrName.RET, 0, 0);
         program.run();
-        
+        */
     }
 }
