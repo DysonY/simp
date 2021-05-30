@@ -179,7 +179,6 @@ public class InstrGenerator
                 return new Instruction(InstrName.LOAD, Integer.parseInt(args[1]), 0);
             
             case "beq":
-                System.out.println("DEBUG beq");
                 validateNumOfArgs(args.length, 3, lineNum);
                 return new Instruction(InstrName.BEQ, Integer.parseInt(args[1]), getAddrOfLabel(args[2]));
             

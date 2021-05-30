@@ -39,6 +39,7 @@ public class Instruction
             case BR: return "br " + op1;
             case PRINT: return "print";
             case RET: return "ret";
+            case LABEL: return ".label";
             default: return "";
         }
     }

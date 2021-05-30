@@ -38,7 +38,7 @@ public class Assembler
     private void runInstruction()
     {
         Instruction current = codeMemory[pc];
-        System.out.println(current.toString());
+        //System.out.println(current.toString());
         int op1 = current.op1;
         int op2 = current.op2;
 
@@ -115,6 +115,7 @@ public class Assembler
                 break;
             
             case PRINT:
+                if (sp == 0) break;
                 char c = (char) this.dataMemory[sp - 1];
                 System.out.print(c);
                 break;
