@@ -10,4 +10,9 @@ public class Instruction
         this.op1 = op1;
         this.op2 = op2;
     }
+
+    public void setInstruction(InstrName instr)
+    {
+        this.instr = instr;
+    }
 }
